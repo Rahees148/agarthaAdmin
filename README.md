@@ -1,4 +1,4 @@
-# Blur Admin HTML template
+# Agartha HTML template
 
 We put a lot of efforts to bring together latest and the most trending web design approaches, while creating this template.
 Every color, character or image was carefully selected by our team to provide the best experience possible.

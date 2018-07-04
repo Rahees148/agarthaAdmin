@@ -13,7 +13,7 @@
 
     $rootScope.$isMobile =  (/android|webos|iphone|ipad|ipod|blackberry|windows phone/).test(navigator.userAgent.toLowerCase());
     var whatToWait = [
-      $timeout(3000)
+      $timeout(500)
     ];
 
     if ($rootScope.$isMobile) {

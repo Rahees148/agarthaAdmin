@@ -9,168 +9,129 @@
       .controller('DashboardLineChartCtrl', DashboardLineChartCtrl);
 
   /** @ngInject */
-  function DashboardLineChartCtrl(layoutColors, layoutPaths) {
-    Plotly.d3.csv('https://raw.githubusercontent.com/plotly/datasets/master/gapminderDataFiveYear.csv', function (err, data) {
-      // Create a lookup table to sort and regroup the columns of data,
-      // first by year, then by continent:
-      var lookup = {};
-      function getData(year, continent) {
-        var byYear, trace;
-        if (!(byYear = lookup[year])) {;
-          byYear = lookup[year] = {};
-        }
-         // If a container for this year + continent doesn't exist yet,
-         // then create one:
-        if (!(trace = byYear[continent])) {
-          trace = byYear[continent] = {
-            x: [],
-            y: [],
-            id: [],
-            text: [],
-            marker: {size: []}
-          };
-        }
-        return trace;
-      }
-    
-      // Go through each row, get the right trace, and append the data:
-      for (var i = 0; i < data.length; i++) {
-        var datum = data[i];
-        var trace = getData(datum.year, datum.continent);
-        trace.text.push(datum.country);
-        trace.id.push(datum.country);
-        trace.x.push(datum.lifeExp);
-        trace.y.push(datum.gdpPercap);
-        trace.marker.size.push(datum.pop);
-      }
-    
-      // Get the group names:
-      var years = Object.keys(lookup);
-      // In this case, every year includes every continent, so we
-      // can just infer the continents from the *first* year:
-      var firstYear = lookup[years[0]];
-      var continents = Object.keys(firstYear);
-    
-      // Create the main traces, one for each continent:
-      var traces = [];
-      for (i = 0; i < continents.length; i++) {
-        var data = firstYear[continents[i]];
-         // One small note. We're creating a single trace here, to which
-         // the frames will pass data for the different years. It's
-         // subtle, but to avoid data reference problems, we'll slice 
-         // the arrays to ensure we never write any new data into our
-         // lookup table:
-        traces.push({
-          name: continents[i],
-          x: data.x.slice(),
-          y: data.y.slice(),
-          id: data.id.slice(),
-          text: data.text.slice(),
-          mode: 'markers',
-          marker: {
-            size: data.marker.size.slice(),
-            sizemode: 'area',
-            sizeref: 200000
-          }
-        });
-      }
-    
-      // Create a frame for each year. Frames are effectively just
-      // traces, except they don't need to contain the *full* trace
-      // definition (for example, appearance). The frames just need
-      // the parts the traces that change (here, the data).
-      var frames = [];
-      for (i = 0; i < years.length; i++) {
-        frames.push({
-          name: years[i],
-          data: continents.map(function (continent) {
-            return getData(years[i], continent);
-          })
-        })
-      }
+  function DashboardLineChartCtrl() {
+    var apiUrl = "assets/json/ticket-analysis.json";
+    var plotData = null;
+
+    Plotly.d3.json(apiUrl, function (err, data) {
+
+
+        plotData = data.tables;
+
+        data.layout.paper_bgcolor = 'rgba(0,0,0,0)';
+        data.layout.plot_bgcolor = 'rgba(0,0,0,0)';
+
+        data.layout.font = {
+            family: 'Courier New, monospace',
+            size: 18,
+            color: '#C4E0E5'
+            
+        };
+
+
+        data.layout.xaxis.titlefont = {
+            family: 'Courier New, monospace',
+            size: 18,
+            color: 'rgb(198, 66, 110)'
+        };
+
+        data.layout.yaxis.titlefont = {
+            family: 'Courier New, monospace',
+            size: 18,
+            color: 'rgb(198, 66, 110)'
+            
+        };
+
+        console.log(data);
+        data.layout.sliders[0].pad.t=100;
+        data.layout.updatemenus[0].pad.t=130;
         
-      // Now create slider steps, one for each frame. The slider
-      // executes a plotly.js API command (here, Plotly.animate).
-      // In this example, we'll animate to one of the named frames
-      // created in the above loop.
-      var sliderSteps = [];
-      for (i = 0; i < years.length; i++) {
-        sliderSteps.push({
-          method: 'animate',
-          label: years[i],
-          args: [[years[i]], {
-            mode: 'immediate',
-            transition: {duration: 300},
-            frame: {duration: 300, redraw: false},
-          }]
+        var myPlot = document.getElementById('myDiv');
+        // Create the plot:
+        Plotly.plot('myDiv', {
+            data: data.data,
+            layout: data.layout,
+            frames: data.frames
         });
-      }
-      
-      var layout = {
-        xaxis: {
-          title: 'Life Expectancy',
-          range: [30, 85]
-        },
-        yaxis: {
-          title: 'GDP per Capita',
-          type: 'log'
-        },
-        hovermode: 'closest',
-         // We'll use updatemenus (whose functionality includes menus as
-         // well as buttons) to create a play button and a pause button.
-         // The play button works by passing `null`, which indicates that
-         // Plotly should animate all frames. The pause button works by
-         // passing `[null]`, which indicates we'd like to interrupt any
-         // currently running animations with a new list of frames. Here
-         // The new list of frames is empty, so it halts the animation.
-        updatemenus: [{
-          x: 0,
-          y: 0,
-          yanchor: 'top',
-          xanchor: 'left',
-          showactive: false,
-          direction: 'left',
-          type: 'buttons',
-          pad: {t: 87, r: 10},
-          buttons: [{
-            method: 'animate',
-            args: [null, {
-              mode: 'immediate',
-              fromcurrent: true,
-              transition: {duration: 300},
-              frame: {duration: 500, redraw: false}
-            }],
-            label: 'Play'
-          }, {
-            method: 'animate',
-            args: [[null], {
-              mode: 'immediate',
-              transition: {duration: 0},
-              frame: {duration: 0, redraw: false}
-            }],
-            label: 'Pause'
-          }]
-        }],
-         // Finally, add the slider and use `pad` to position it
-         // nicely next to the buttons.
-        sliders: [{
-          pad: {l: 130, t: 55},
-          currentvalue: {
-            visible: true,
-            prefix: 'Year:',
-            xanchor: 'right',
-            font: {size: 20, color: '#666'}
-          },
-          steps: sliderSteps
-        }]
-      };
-      
-      // Create the plot:
-      Plotly.plot('myDiv', {
-        data: traces,
-        layout: layout,
-        frames: frames,
-      });
+
+
+
+        /**
+         * plotly_relayout
+         * plotly_afterplot
+         * plotly_animatingframe
+         */
+
+
+
+        myPlot.on('plotly_animatingframe', function (eventdata) {
+            CreateTableFromJSON(data.tables[eventdata.name], eventdata.name);
+        });
+
+        myPlot.on('plotly_click', function (eventdata) {
+            console.log(eventdata.points[0].text);
+            if (eventdata.points[0].text !== null) {
+                window.open('/ticket/getTicketDetail/?id=' + eventdata.points[0].text, '_blank');
+            }
+        });
+
+
+
+        function CreateTableFromJSON(getData, frameIndex) {
+
+            var heading = getData[0].row;
+            var tableId = document.getElementById("table-id");
+            var table = document.createElement("table");
+            table.id = "table-id";
+            if (tableId) {
+                tableId.remove();
+            }
+            var col = [];
+
+            for (var key in getData) {
+                if (col.indexOf(key) === -1) {
+                    col.push(getData[key].row);
+                }
+            }
+
+            var tr = table.insertRow(-1);
+
+            for (var i = 0; i < col.length; i++) {
+                for (var k = 0; k < col[i].length; k++) {
+                    if (i === 0) {
+                        var th = document.createElement("th");
+                    } else {
+                        var th = document.createElement("td");
+                    }
+                    var str;
+                    if (typeof col[i][k] == "string") {
+                        if (i === 0 && k === 0) {
+                            str = col[i][k];
+                        } else {
+                            str = '<a class="table-link"  data-matrix="' + i + "--" + k + '"  href="javascript:void(0)" data-frame=' + frameIndex + ' data-allheading=' + col[i][k] + '>' + col[i][k] + '</a>';
+                        }
+
+                    } else {
+                        if (col[i][k].length == 0) {
+                            str = '<img src="./img/thumbup.jpg" style=height:25px;width:25px>';
+                        } else {
+                            str = '<a class="table-link" data-matrix="' + i + "--" + k + '" data-frame=' + frameIndex + ' data-row=' + col[i][0] + ' data-col=' + heading[k] + ' href="javascript:void(0)">' + col[i][k].length + '</a>'
+                        }
+                    }
+
+                    th.innerHTML = str;
+                    tr.appendChild(th);
+                }
+                tr = table.insertRow(-1);
+            }
+
+
+            var divContainer = document.getElementById("showData");
+            divContainer.innerHTML = "";
+            divContainer.appendChild(table);
+        }
+
     });
+
   }
 })();

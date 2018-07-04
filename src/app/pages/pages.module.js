@@ -10,7 +10,6 @@
 
     'Agartha.pages.dashboard',
     'Agartha.pages.ui',
-    'Agartha.pages.components',
     'Agartha.pages.form',
     'Agartha.pages.tables',
     'Agartha.pages.profile',
