@@ -45,7 +45,11 @@
         console.log(data);
         data.layout.sliders[0].pad.t=100;
         data.layout.updatemenus[0].pad.t=130;
-        
+
+        var loadCon = document.getElementById('holdon-overlay');
+        var modalContainer = document.getElementById('id01');
+
+        loadCon.setAttribute("style", "display: none;");
         var myPlot = document.getElementById('myDiv');
         // Create the plot:
         Plotly.plot('myDiv', {
@@ -54,6 +58,75 @@
             frames: data.frames
         });
 
+
+        document.getElementById("showData").addEventListener('click', clickLinkHandler);
+
+        function clickLinkHandler(event) {
+
+            var objDataSet = Object.assign({}, event.target.dataset);
+
+            if (objDataSet.hasOwnProperty('frame')) {
+
+                var arrSplit = objDataSet.matrix.split('--');
+                if (objDataSet.hasOwnProperty('allheading')) {
+                    // console.log(plotData[objDataSet.frame]);
+
+                    if (arrSplit[0] == 0) {
+                        var currentrow = plotData[objDataSet.frame];
+                        var str = '';
+                        for (i = 1; i < currentrow.length; i++) {
+                            var eachrow = currentrow[i]['row'][arrSplit[1]];
+                            if (eachrow.length !== 0) {
+                                str += '<div class="main-continer"><div class="card-header">' + currentrow[i]['row'][0] + '</div>';
+                                for (var k = 0; k < eachrow.length; k++) {
+                                    str += '<a href="/ticket/getTicketDetail/?id=' + eachrow[k] + '"  target="_blank" class="btn btn-primary ' + currentrow[arrSplit[0]]['row'][arrSplit[1]].toLowerCase() + '">' + eachrow[k] + '</a>';
+                                }
+
+                                str += "<br><br></div>";
+                            }
+                        }
+                        modalContainer.style.display = 'block';
+                        document.getElementsByClassName('overlay-title')[0].innerHTML = "" + plotData[objDataSet.frame][arrSplit[0]]['row'][arrSplit[1]] + " Tickets";
+                        document.getElementsByClassName('overlaycontainer')[0].innerHTML = str;
+
+                    } else {
+
+                        var currentrow = plotData[objDataSet.frame][arrSplit[0]]['row'];
+                        var str = '';
+                        for (i = 1; i < currentrow.length; i++) {
+                            if (currentrow[i].length !== 0) {
+                                str += '<div class="main-continer"><div class="card-header">' + plotData[objDataSet.frame][0]['row'][i] + '</div>';
+
+                                for (var k = 0; k < currentrow[i].length; k++) {
+                                    str += '<a href="/ticket/getTicketDetail/?id=' + currentrow[i][k] + '"  target="_blank" class="btn btn-primary ' + plotData[objDataSet.frame][0]['row'][i].toLowerCase() + '">' + currentrow[i][k] + '</a>';
+                                }
+                                str += "<br><br></div>";
+                            }
+
+
+                        }
+                        modalContainer.style.display = 'block';
+                        document.getElementsByClassName('overlay-title')[0].innerHTML = "" + currentrow[0] + " Tickets";
+                        document.getElementsByClassName('overlaycontainer')[0].innerHTML = str;
+                    }
+
+
+
+                } else {
+
+                    var list = plotData[objDataSet.frame][arrSplit[0]]['row'][arrSplit[1]];
+                    var str = '<div class="main-continer">';
+                    for (var i = 0; i < list.length; i++) {
+                        str += '<a href="/ticket/getTicketDetail/?id=' + list[i] + '"  target="_blank" class="btn btn-primary ' + objDataSet.col.toLowerCase() + '">' + list[i] + '</a>';
+                    }
+                    str += "</div>";
+                    document.getElementsByClassName('overlay-title')[0].innerHTML = objDataSet.row + " " + objDataSet.col + " on " + plotData[objDataSet.frame][0]['row'][0] + "<b> (" + list.length + ")</b>";
+                    document.getElementsByClassName('overlaycontainer')[0].innerHTML = str;
+                    modalContainer.style.display = 'block';
+                }
+
+            }
+        }
 
 
         /**
@@ -132,6 +205,5 @@
         }
 
     });
-
   }
 })();

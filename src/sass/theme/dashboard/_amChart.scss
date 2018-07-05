@@ -2,3 +2,214 @@
   width: 100%;
   height: 550px;
 }
+
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Jun 28, 2018, 11:43:22 AM
+    Author     : anugauta
+*/
+
+#holdon-overlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  background-color: #443d3d;
+  opacity: 0.8;
+  z-index: 9999;
+}
+
+#holdon-content-container {
+  width: 100%;
+  padding: 0;
+  vertical-align: middle;
+  display: table-cell !important;
+  margin: 0;
+  text-align: center;
+}
+
+#holdon-message-container {
+  width: 100%;
+  text-align: center;
+  position: absolute;
+  top: 44%;
+  color: #fff;
+  font-size: 20px;
+}
+
+.loading-continer{
+  width: 500px;
+  margin: 0 auto;
+  height:100px;
+}
+.loading-img{
+  width: 75px;
+  height: 75px;
+}
+
+
+table td,table th{
+  padding:8px;border-style:solid
+}
+table,table td,table th{border-width:1px;border-color:#666}
+table{
+  width:100%;
+  font-family:verdana,arial,sans-serif;
+  font-size:14px;
+  color: #333;
+  border-collapse:collapse;
+  text-align:center
+}
+table a{
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+  cursor: pointer;
+}
+table th{background-color:#dedede}table td{background-color:#fff;height:47px;font-size:18px}	
+
+
+
+
+/* Overlay Content */
+
+
+.imgcontainer {
+  text-align: center;
+  margin: 0px 0 12px 0;
+  position: relative;
+  padding: .75rem 1.25rem;
+  /* margin-bottom: 0; */
+  background-color: rgb(64, 110, 140);
+  border-bottom: 1px solid rgb(200, 206, 211);
+  color: rgb(255, 255, 255);
+  font-size: 17px;
+}
+
+
+
+.container {
+  padding: 16px;
+}
+
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  padding-top: 60px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button (x) */
+.close {
+  position: absolute;
+  right: 25px;
+  top: 0;
+  color: #fff;
+  font-size: 35px;
+  font-weight: bold;
+}
+
+.close:hover, close:focus {
+  cursor: pointer;
+}
+
+/* Add Zoom Animation */
+.animate {
+  -webkit-animation: animatezoom 0.6s;
+  animation: animatezoom 0.6s
+}
+
+@-webkit-keyframes animatezoom {
+  from {-webkit-transform: scale(0)} 
+  to {-webkit-transform: scale(1)}
+}
+
+@keyframes animatezoom {
+  from {transform: scale(0)} 
+  to {transform: scale(1)}
+}
+
+
+.btn {
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  border: 1px solid rgba(0, 0, 0, 0);
+  padding: .375rem .75rem;
+  font-size: .875rem;
+  line-height: 1.5;
+  border-radius: .25rem;
+  text-decoration: none;
+  margin: 5px;
+
+}
+
+.btn-primary {
+  color: rgb(255, 255, 255);
+  background-color: rgb(32, 168, 216);
+  border-color: rgb(32, 168, 216);
+}
+
+
+.defect{
+  background-color: #f86c6b;
+  border-color: #f86c6b;
+
+}
+
+.dependency{
+  background-color: #ffc107;
+  border-color:  #ffc107;
+
+}
+
+.task{
+  background-color:#63c2de;
+  border-color: #63c2de;
+
+}
+
+
+.card-header {
+  padding: .75rem 1.25rem;
+  margin-bottom: 0;
+  background-color: rgb(240, 243, 245);
+  border-bottom: 1px solid rgb(200, 206, 211);
+}
+
+
+.main-continer{
+  position: relative;
+  display: -ms-flexbox;
+  min-width: 0;
+  background-color: rgb(255, 255, 255);
+  background-clip: border-box;
+  border: 1px solid rgb(200, 206, 211);
+  border-radius: .25rem;
+  margin-bottom: 10px;
+}

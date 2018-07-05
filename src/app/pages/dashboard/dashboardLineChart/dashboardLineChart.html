@@ -1,3 +1,37 @@
 <div id="amchart">
-    <div id="myDiv"><!-- Plotly chart will be drawn inside this DIV --></div>
+    <div id="myDiv"></div>
+    <div style=" margin: auto;width: 24%;padding: 10px;">
+        <fieldset style="width: 355px; text-align:center;">
+            <legend> Project Health:</legend> 
+            <div>  
+                <div id="showData" ></div>
+            </div>
+        </fieldset>
+    </div>
+
+    <div id="holdon-overlay">
+        <div id="holdon-content-container">
+            <div id="holdon-message-container"> 
+                <img class="loading-img" src="/static/app/img/loading.gif"/>
+                <div class="loading-continer">
+                    <br>
+                    Please wait while data is loading !!!
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="id01" class="modal" >
+        <div class="modal-content animate">
+            <div class="imgcontainer">
+                <span onclick="document.getElementById('id01').style.display = 'none'" class="close" title="Close Modal">&times;</span>
+                <div class="overlay-title"></div>
+            </div>
+            <div class="container overlaycontainer">
+                
+            
+            </div>
+        </div>
+    </div>
 </div>
