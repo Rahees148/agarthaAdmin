@@ -6,8 +6,13 @@
   'use strict';
 
   angular.module('Agartha.pages.dashboard', [])
-      .config(routeConfig);
-
+      .config(routeConfig)
+      .controller('ModalInstanceCtrl', function ( items, $scope ) {
+        var $ctrl = this,
+        index = items.index.split(',');
+        $scope.dependancy = items[index[0]].row[index[1]]
+        console.log('items call', items[index[0]].row[index[1]])
+      });
   /** @ngInject */
   function routeConfig($stateProvider) {
     $stateProvider

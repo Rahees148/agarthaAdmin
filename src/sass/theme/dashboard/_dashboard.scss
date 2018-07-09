@@ -1,0 +1,41 @@
+.project-health-heading{
+    h5{
+        span{
+            font-weight: 600;
+        }
+    }
+}
+.project-health-summary{
+    i{
+        font-size: 30px;
+    }
+    .item-number{
+        font-size: 30px;
+    }
+    .item-head{
+        display: inline-block;
+        width: 100%;
+        padding: 5px 0;
+        font-size: 16px;
+        font-weight: 200;
+        color: #969494;
+    }
+    .dependancy{
+        i, .item-number{
+            color: $dependancy-color;
+        }
+    }
+    .defects{
+        i, .item-number{
+            color: $defects-color;
+        }
+    }
+    .tasks{
+        i, .item-number{
+            color: $tasks-color;
+        }
+    }
+}
+.infolayer .g-gtitle{
+    display: none;
+}

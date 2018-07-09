@@ -1,37 +1,121 @@
-<div id="amchart">
-    <div id="myDiv"></div>
-    <div style=" margin: auto;width: 24%;padding: 10px;">
-        <fieldset style="width: 355px; text-align:center;">
-            <legend> Project Health:</legend> 
-            <div>  
-                <div id="showData" ></div>
+
+<div class="row">
+    <div class="col-sm-12 project-health-heading">
+        <div class="row">
+            <div class="col-sm-3">
+                <h5>PROJECT HEALTH - <span>{{projectHealth[0].row[0]}}</span></h5>
             </div>
-        </fieldset>
+            <div class="col-sm-3 pull-right" style="margin-top:-16px;">
+                <select class="form-control" title="select Project" data-style="btn-info" data-container="body" selectpicker="" tabindex="-98">
+                    <option class="bs-title-option" value="">Select Project</option>
+                    <option value="Option 1">Altria</option>
+                    <option value="Option 2">MCA</option>
+                    <option value="Option 3">SSGA</option>
+                    <option value="Option 4">Abbvie</option>
+                    <option data-hidden="true" disabled="" value="">Info Select</option>
+                </select>
+            </div>
+        </div>
+        
+    </div>
+    <div class="col-xlg-4 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+      <div class="row">
+        <div class="col-xlg-12 col-lg-12 col-md-12 col-sm-7 col-xs-12 project-health-summary"
+             ba-panel
+             ba-panel-title="{{projectHealth[1].row[0]}}"
+             ba-panel-class="small-panel">
+             <div class="col-sm-4 dependancy">
+                <a href="javascript:void(0)" ng-click="open('app/pages/ui/modals/modalTemplates/projecthealth.html', 'lg', '1,1')">
+                    <i class="fa fa-link" aria-hidden="true"></i>
+                    <span class="item-number" > {{projectHealth[1].row[1].length}}</span>
+                    <span class="item-head">Dependancy</span>
+                </a>
+            </div>
+            <div class="col-sm-4 have-border-left have-border-right defects">
+                <i class="fa fa-bug" aria-hidden="true"></i>
+                <span class="item-number" >{{projectHealth[1].row[2].length}}</span>
+                <span class="item-head" >Open Defects</span>
+            </div>
+            <div class="col-sm-4 tasks">
+                <i class="fa fa-tasks" aria-hidden="true"></i>
+                <span class="item-number" >{{projectHealth[1].row[3].length}}</span>
+                <span class="item-head" >Open Tasks</span>
+            </div>
+        </div>
+      </div>
     </div>
 
-    <div id="holdon-overlay">
-        <div id="holdon-content-container">
-            <div id="holdon-message-container"> 
-                <img class="loading-img" src="/static/app/img/loading.gif"/>
-                <div class="loading-continer">
-                    <br>
-                    Please wait while data is loading !!!
+    <div class="col-xlg-4 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+        <div class="row">
+          <div class="col-xlg-12 col-lg-12 col-md-12 col-sm-7 col-xs-12 project-health-summary"
+               ba-panel
+               ba-panel-title="{{projectHealth[2].row[0]}}"
+               ba-panel-class="small-panel">
+               <div class="col-sm-4 dependancy">
+                   <a href="javascript:void(0)" ng-click="open('app/pages/ui/modals/modalTemplates/view-project.html', 'lg', '{{projectHealth[2].row[1]}}')">
+                        <i class="fa fa-link" aria-hidden="true"></i>
+                        <span class="item-number" >{{projectHealth[2].row[1].length}}</span>
+                        <span class="item-head" >Dependancy</span>
+                    </a>
                 </div>
-            </div>
+                <div class="col-sm-4 have-border-left have-border-right defects">
+                    <i class="fa fa-bug" aria-hidden="true"></i>
+                    <span class="item-number" >{{projectHealth[2].row[2].length}}</span>
+                    <span class="item-head" >Open Defects</span>
+                </div>
+                <div class="col-sm-4 tasks">
+                    <i class="fa fa-tasks" aria-hidden="true"></i>
+                    <span class="item-number" >{{projectHealth[2].row[3].length}}</span>
+                    <span class="item-head" >Open Tasks</span>
+                </div>
+          </div>
         </div>
-    </div>
+      </div>
 
-
-    <div id="id01" class="modal" >
-        <div class="modal-content animate">
-            <div class="imgcontainer">
-                <span onclick="document.getElementById('id01').style.display = 'none'" class="close" title="Close Modal">&times;</span>
-                <div class="overlay-title"></div>
-            </div>
-            <div class="container overlaycontainer">
-                
-            
-            </div>
+      <div class="col-xlg-4 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+        <div class="row">
+          <div class="col-xlg-12 col-lg-12 col-md-12 col-sm-7 col-xs-12 project-health-summary"
+               ba-panel
+               ba-panel-title="{{projectHealth[3].row[0]}}"
+               ba-panel-class="small-panel">
+               <div class="col-sm-4 dependancy">
+                    <a href="javascript:void(0)" ng-click="open('app/pages/ui/modals/modalTemplates/view-project.html', 'lg', '{{projectHealth[3].row[1]}}')" >
+                        <i class="fa fa-link" aria-hidden="true"></i>
+                        <span class="item-number" >{{projectHealth[3].row[1].length}}</span>
+                        <span class="item-head" >Dependancy</span>
+                    </a>
+                </div>
+                <div class="col-sm-4 have-border-left have-border-right defects">
+                    <i class="fa fa-bug" aria-hidden="true"></i>
+                    <span class="item-number" >{{projectHealth[3].row[2].length}}</span>
+                    <span class="item-head" >Open Defects</span>
+                </div>
+                <div class="col-sm-4 tasks">
+                    <i class="fa fa-tasks" aria-hidden="true"></i>
+                    <span class="item-number" >{{projectHealth[3].row[3].length}}</span>
+                    <span class="item-head" >Open Tasks</span>
+                </div>
+          </div>
         </div>
+      </div>
+   
+  </div>
+
+<div class="row">
+    <div class="col-xlg-9 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+      <div class="row">
+        <div class="col-xlg-12 col-lg-12 col-md-12 col-sm-7 col-xs-12"
+             ba-panel
+             ba-panel-title="{{title}}"
+             ba-panel-class="medium-panel">
+                <div id="myDiv"></div>
+        </div>
+      </div>
     </div>
-</div>
+    <div class="col-xlg-3 col-lg-6 col-md-6 col-xs-12"
+      ba-panel
+      ba-panel-title="To Do List"
+      ba-panel-class="xmedium-panel feed-comply-panel with-scroll todo-panel">
+      <dashboard-todo></dashboard-todo>
+    </div>
+  </div>

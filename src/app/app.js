@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('BlurAdmin', [
+angular.module('AgarthaAdmin', [
   'ngAnimate',
   'ui.bootstrap',
   'ui.sortable',
