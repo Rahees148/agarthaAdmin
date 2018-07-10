@@ -10,21 +10,19 @@ We're very proud of it and like it very much. We also hope that you will enjoy i
 To build the template from scratch you will be required to have following tools
 * Download and install nodejs [https://nodejs.org](https://nodejs.org)
 * Open the console inside of extracted folder and run `npm install` to fetch all dependencies
-* Run `gulp` to build sources
-* Go to `release\` folder in check out your freshly made compiled files
-* Run `gulp serve` and enjoy the beauty!
+* Run `npm start` to build sources
+* Go to `build\` folder in check out your freshly made compiled files
+* Run `ng serve` and enjoy the beauty!
  
 ## Features
 * Responsive layout
 * High resolution
-* Bootstrap CSS Framework
+* Bootstrap 4 CSS Framework
 * Sass
-* Gulp build
-* AngularJS
+* Angular 2+
+* Angular CLI
 * Jquery
 * Jquery ui
 * Charts (amChart, Chartist, Chart.js, Morris)
 * Maps (Google, Leaflet, amMap)
-* etc
-
-
+* and many more.
